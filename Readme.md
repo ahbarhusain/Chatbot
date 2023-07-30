@@ -1,6 +1,6 @@
 # Chatbot
 
-Ask anything 
+Ask anything related to our custom data
 
 ## Installation
 
