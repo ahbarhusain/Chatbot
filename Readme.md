@@ -20,5 +20,7 @@ Add your HUGGINGFACEHUB_API_TOKEN in key.py
 
 ```bash
 chainlit run model.py
+```
+
 
 # Chatbot![Screenshot (81)](https://github.com/ahbarhusain/Chatbot/assets/97535337/2000a75a-c236-4e02-9c7e-e1b0d649471b)
