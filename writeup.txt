@@ -1,0 +1,60 @@
+ Brance <AI Research Intern>Task
+
+Name:Ahbar Husain
+Linkedin Profile:https://www.linkedin.com/in/ahbar-husain-1317a41b1/
+Date Challenge Received:29-07-23
+Date Solution Delivered:30-07-23
+
+
+1. Problem Statement 
+
+You are given a knowledge document over which you need to build a chatbot using Retrieval Augmented Generation (RAG). The RAG module should be capable of receiving user questions as input and will need to output an answer to it based on the knowledge provided in the document. The RAG module, as the name suggests, would need a retrieval phase that finds the necessary context from the knowledge document based on the user’s question; and the Generation phase powered by LLM that can personalise answers per the user question using the retrieved knowledge. You are free to use an LLM orchestrator like Langchain, etc.
+
+
+1. Approach
+
+Introduction: Brance Bot is an intelligent question answering system designed to provide accurate and relevant answers to user queries based on a knowledge base. The system utilises a combination of natural language processing (NLP) techniques, embeddings,LLMs and langchain to retrieve and generate responses to user questions. The project incorporates various components, including vector database creation, language model loading, question-answering chain creation, and an evaluation module to assess the system's performance.
+
+Vector Database Creation: The first step in building Brance Bot is to create a vector database that stores the embeddings of the knowledge documents. The data is loaded from the specified file (in this case, "KnowledgeDocument(pan_card_services).txt") using the TextLoader. The documents are then split into smaller chunks using the RecursiveCharacterTextSplitter, which breaks the text into chunks of size 500 characters with a 50-character overlap. The embeddings of each chunk are obtained using the HuggingFaceEmbeddings model (specifically, the 'sentence-transformers/all-MiniLM-L6-v2' model), which is based on transformer architecture. The resulting embeddings are stored in the vector database using FAISS.
+
+Language Model Loading: The language model responsible for generating answers to user queries is loaded using HuggingFaceHub. In this case, the model loaded is 'google/flan-t5-xxl', which is a T5-based model fine-tuned for question-answering tasks. The loaded model enables easy integration with other components of the project.
+
+Retrieval Question-Answering Chain: To create a question-answering chain, Brance Bot uses the RetrievalQA class from the langchain library. The chain is set up to use the loaded language model and the vector database (FAISS) for retrieving relevant answers. The chain is designed to return the source documents along with the answer to provide transparency and enable users to verify the information.
+
+Main Question-Answering Function: The main function of Brance Bot is the qa_bot() function. It initialises the embeddings and the vector database and sets up the question-answering chain using the previously mentioned components. This function will be used to respond to user queries.
+
+Evaluation Module: The evaluation.py script provides a simple evaluation of the model's performance. It calculates the BLEU (Bilingual Evaluation Understudy) score for each generated answer compared to its corresponding reference answer. BLEU is a widely used metric to measure the quality of machine-generated text by comparing it to human-generated reference text. The script calculates the average BLEU score for all answers, which gives an indication of how well the system performs in generating accurate responses.
+
+Conclusion: Brance Bot is an intelligent question answering system that combines a vector database for efficient retrieval and a language model for generating responses using Langchain. The project leverages the power of transformer-based llm models and embeddings to deliver accurate answers to user queries based on a knowledge base. The evaluation module provides insights into the system's performance and can be used to fine-tune and improve the model in the future. As a result, Brance Bot serves as a useful tool for providing relevant and reliable information to users and can find applications in various domains where question answering is crucial.
+
+3.Deployment
+
+This code provided uses ChainLit, a Python library that simplifies the process of creating conversational AI systems and chatbots. ChainLit facilitates the chaining of different language models (LLMs) and vector stores, allowing for easy integration of various components to build a complete conversational pipeline. Let's break down the code and explain each part:
+
+@cl.on_chat_start This is a decorator from ChainLit that indicates the function following it (start()) will be executed when the chat session starts. In this case, the start() function initializes the Brance Bot and sets up the question-answering chain using the qa_bot() function.
+async def start() The start() function is an asynchronous function (uses async) that is executed when the chat session begins. Inside this function, it does the following:
+
+a. Calls the qa_bot() function to create the question-answering chain and stores it in the chain variable.
+b. Sends a message "Starting the bot..." to the user using cl.Message(content="Starting the bot...").
+c. Updates the message content to "Hi, Welcome to Brance Bot. What is your query?" using msg.content = "Hi, Welcome to Brance Bot. What is your query?".
+d. The updated message is then sent to the user using await msg.update().
+e. Stores the chain in the user session using cl.user_session.set("chain", chain). This is done so that the chain can be accessed and used in subsequent interactions during the chat session.
+
+@cl.on_message This is another decorator from ChainLit that indicates the function following it (main(message)) will be executed when the chatbot receives a message from the user.
+
+async def main(message) The main() function is an asynchronous function (uses async) that handles the user's messages. When a message is received, it does the following:
+
+a. Retrieves the question-answering chain from the user session using chain = cl.user_session.get("chain").
+b. Creates an instance of cl.AsyncLangchainCallbackHandler named cb. This callback handler is used to handle the responses from the chain asynchronously.
+c. Sets stream_final_answer to True, which indicates that the answer will be streamed as it is generated instead of waiting for the full response.
+d. Sets answer_prefix_tokens to ["FINAL", "ANSWER"], which specifies the prefix tokens to identify the final answer.
+e. Sets cb.answer_reached = True, which means that the callback handler will stop collecting further responses once the final answer is reached.
+f. Calls the question-answering chain using await chain.acall(message, callbacks=[cb]). The acall() method processes the user's message through the chain, and the cb callback handler is used to handle the responses.
+g. Retrieves the generated answer from the result of the chain call using res["result"].
+h. Retrieves the source documents from the result using res["source_documents"].
+i. If there are source documents, it appends the sources to the answer using answer += f"\nSources:" + str(sources). Otherwise, it appends "No sources found" to the answer.
+j. Finally, it sends the answer to the user using await cl.Message(content=answer).send().
+
+
+In summary, the provided ChainLit code sets up Brance Bot, a question-answering chatbot. When the chat session starts, it creates a question-answering chain, and when the user sends a message, it processes the message through the chain, generates a response, and sends it back to the user along with the relevant source documents (if available). The ChainLit library simplifies the integration of components, making it easier to build complex conversational AI systems with different language models and vector stores.
+
