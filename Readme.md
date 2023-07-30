@@ -4,7 +4,7 @@ Ask anything related to our custom data
 
 ## Installation
 
-Developed using `python 3.10` on windows.
+Developed using `python 3.11.4` on windows.
 
 ```bash
 pip install -r requirements.txt
