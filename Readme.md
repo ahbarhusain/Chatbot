@@ -12,8 +12,9 @@ pip install -r requirements.txt
 
 ## Token Key
 
+```bash
 Add your HUGGINGFACEHUB_API_TOKEN in key.py 
-
+```
 
 ## Usage
 
