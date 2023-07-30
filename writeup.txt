@@ -58,3 +58,10 @@ j. Finally, it sends the answer to the user using await cl.Message(content=answe
 
 In summary, the provided ChainLit code sets up Brance Bot, a question-answering chatbot. When the chat session starts, it creates a question-answering chain, and when the user sends a message, it processes the message through the chain, generates a response, and sends it back to the user along with the relevant source documents (if available). The ChainLit library simplifies the integration of components, making it easier to build complex conversational AI systems with different language models and vector stores.
 
+4.Future Scope
+
+a.Fine-tuning the Language Model: The current implementation uses a pre-trained language model ('google/flan-t5-xxl'). For better performance, fine-tuning the language model on a domain-specific dataset or the knowledge documents themselves could lead to more accurate and personalized answers.
+b.Dynamic Document Update: Implementing a mechanism to dynamically update the knowledge document database would ensure that the bot's knowledge remains up-to-date with the latest information.
+c.Multi-Lingual Support: Expanding the system to support multiple languages would make the bot accessible to a broader audience.
+d.User Interface: Developing a user-friendly interface or integrating the bot into existing platforms (e.g., websites or messaging apps) can make it more accessible to users.
+e.Enhanced Vector Database: Experimenting with different embedding models and vector database configurations can improve retrieval accuracy.Expanding the knowledge document with more relevant and diverse information can improve the bot's ability to answer a broader range of questions accurately. This can be achieved by adding more documents or integrating external data sources.
