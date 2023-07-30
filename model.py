@@ -1,7 +1,7 @@
 import os
 from mykey import key
 #os.environ["HUGGINGFACEHUB_API_TOKEN"] = key
-os.environ["db_username"] == st.secrets["db_username"]
+os.environ["db_username"] == st.secrets["key"]
 from langchain.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain import PromptTemplate
 from langchain.embeddings import HuggingFaceEmbeddings
